@@ -108,13 +108,6 @@ class SimpleTest extends Specification {
         response == "Secure OK"
     }
 
-    def "test exception CGLibClient when class not a controller"() {
-        when:
-        serviceWithFormAuth.produceClient(CGLibClientFactory.class)
-        then:
-        thrown(IllegalArgumentException)
-    }
-
     def "test exception CookieAuthenticationRequestExecutor when cookie name is empty"() {
         when:
         new CookieAuthenticationStrategy("");
