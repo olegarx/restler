@@ -7,6 +7,8 @@ import org.restler.http.RestOperationsExecutor
 import org.restler.http.security.authentication.CookieAuthenticationStrategy
 import org.restler.http.security.authorization.FormAuthorizationStrategy
 import org.restler.testserver.Controller
+import org.restler.testserver.springdata.Person
+import org.restler.testserver.springdata.PersonsRepository
 import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
 import spock.util.concurrent.AsyncConditions
@@ -113,5 +115,12 @@ class SimpleTest extends Specification {
         new CookieAuthenticationStrategy("");
         then:
         thrown(IllegalArgumentException)
+    }
+
+    def "test PersonRepository findOne"() {
+        expect:
+        Person person = serviceWithFormAuth.produceClient(PersonsRepository.class).findOne("0");
+        person.getId() == "0"
+        person.getName() == "test name"
     }
 }
