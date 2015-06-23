@@ -17,8 +17,6 @@ open class TestServer {
 }
 
 fun main(args: Array<String>) {
-    //val configuration  = org.hibernate.cfg.Configuration();
-    //configuration.configure("hibernate.cfg.xml");
 
     SpringApplication.run(javaClass<TestServer>(), *args)
 }
