@@ -1,6 +1,5 @@
 package org.restler.testserver
 
-import org.restler.testserver.db.DbConfig
 import org.restler.testserver.security.SecurityConfig
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -10,7 +9,7 @@ import org.springframework.context.annotation.Import
 
 EnableAutoConfiguration
 Configuration
-Import(SecurityConfig::class, DbConfig::class)
+Import(SecurityConfig::class)
 open class TestServer {
 
     Bean open fun controller() = Controller()
