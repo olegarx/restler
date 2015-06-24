@@ -4,6 +4,7 @@ import org.restler.testserver.Controller
 import spock.lang.Specification
 import java.util.function.BiFunction
 
+import java.util.function.BiFunction
 
 class CGLibClientFactorySpec extends Specification {
     def mockServiceMethodInvocationExecutor = Mock(ServiceMethodInvocationExecutor)

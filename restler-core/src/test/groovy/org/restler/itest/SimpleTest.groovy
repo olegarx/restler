@@ -2,7 +2,6 @@ package org.restler.itest
 
 import org.restler.Service
 import org.restler.ServiceBuilder
-import org.restler.client.CGLibClientFactory
 import org.restler.http.RestOperationsExecutor
 import org.restler.http.security.authentication.CookieAuthenticationStrategy
 import org.restler.http.security.authorization.FormAuthorizationStrategy
