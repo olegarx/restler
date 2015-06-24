@@ -3,6 +3,7 @@ package org.restler;
 import org.restler.client.CGLibClientFactory;
 import org.restler.client.CachingClientFactory;
 import org.restler.client.ControllerMethodInvocationMapper;
+import org.restler.client.RepositoryMethodInvocationMapper;
 import org.restler.http.*;
 import org.restler.http.error.ClassNameErrorMappingRequestExecutionAdvice;
 import org.restler.http.security.AuthenticatingExecutionAdvice;
@@ -109,7 +110,8 @@ public class ServiceBuilder {
 
         ExecutionChain chain = new ExecutionChain(executor, advices);
 
-        return new Service(new CachingClientFactory(new CGLibClientFactory(new HttpServiceMethodInvocationExecutor(chain), new ControllerMethodInvocationMapper(baseUrl), threadExecutor)), session);
+        return new Service(new CachingClientFactory(new CGLibClientFactory(new HttpServiceMethodInvocationExecutor(chain), new ControllerMethodInvocationMapper(baseUrl),
+                new RepositoryMethodInvocationMapper(baseUrl), threadExecutor)), session);
     }
 
 }

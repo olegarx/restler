@@ -118,7 +118,8 @@ class SimpleTest extends Specification {
 
     def "test PersonRepository findOne"() {
         expect:
-        Person person = serviceWithFormAuth.produceClient(PersonsRepository.class).findOne("0");
+        PersonsRepository personRepository = serviceWithFormAuth.produceClient(PersonsRepository.class)
+        Person person = personRepository.findOne("0");
         person.getId() == "0"
         person.getName() == "test name"
     }

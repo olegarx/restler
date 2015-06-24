@@ -18,12 +18,11 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.function.BiFunction;
 
 /**
  * Maps a properly annotated Java method invocation to invocation of a service method.
  */
-public class ControllerMethodInvocationMapper implements BiFunction<Method, Object[], ServiceMethodInvocation<?>> {
+public class ControllerMethodInvocationMapper implements InvocationMapper {
 
     private static final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
@@ -34,7 +33,7 @@ public class ControllerMethodInvocationMapper implements BiFunction<Method, Obje
     }
 
     @Override
-    public ServiceMethodInvocation<?> apply(Method method, Object[] args) {
+    public ServiceMethodInvocation<?> apply(Object o, Method method, Object[] args) {
         ServiceMethod<?> description = getDescription(method);
 
         Object requestBody = null;
