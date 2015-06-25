@@ -81,19 +81,18 @@ public class CGLibClientFactory implements ClientFactory {
 
     private boolean isRepository(Class<?> someClass) {
         if (someClass.isInterface()) {
-            Class<?> interfaceClass = someClass;
-            Class<?>[] interfaces;
 
-            do {
-                if (interfaceClass == Repository.class) {
+            if (someClass == Repository.class) {
+                return true;
+            }
+
+            Class<?>[] interfaces = someClass.getInterfaces();
+
+            for (Class<?> interf : interfaces) {
+                if (isRepository(interf)) {
                     return true;
                 }
-
-                interfaces = interfaceClass.getInterfaces();
-                if (interfaces.length == 1) {
-                    interfaceClass = interfaces[0];
-                }
-            } while (interfaces.length == 1);
+            }
         }
         return false;
     }
