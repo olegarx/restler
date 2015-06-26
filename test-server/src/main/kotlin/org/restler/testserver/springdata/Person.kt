@@ -6,6 +6,6 @@ import javax.persistence.Entity
 import javax.persistence.Id
 
 Entity class Person(
-        Id var id: String = "",
-        Column var name: String = ""
+        public Id var id: String = "",
+        public Column var name: String = ""
 ) : Serializable

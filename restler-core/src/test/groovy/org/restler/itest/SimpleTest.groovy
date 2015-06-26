@@ -3,6 +3,7 @@ package org.restler.itest
 import org.restler.Service
 import org.restler.ServiceBuilder
 import org.restler.http.RestOperationsExecutor
+import org.restler.http.SpringDataRestOperationsExecutor
 import org.restler.http.security.authentication.CookieAuthenticationStrategy
 import org.restler.http.security.authorization.FormAuthorizationStrategy
 import org.restler.testserver.Controller
@@ -22,7 +23,7 @@ class SimpleTest extends Specification {
     def formAuth = new FormAuthorizationStrategy("http://localhost:8080/login", login, "username", password, "password");
     //def basicAuth = new BasicAuthorizationStrategy(login, password)
 
-    def spySimpleHttpRequestExecutor = Spy(RestOperationsExecutor, constructorArgs: [new RestTemplate()])
+    def spySimpleHttpRequestExecutor = Spy(SpringDataRestOperationsExecutor, constructorArgs: [new RestOperationsExecutor(new RestTemplate())])
 
     Service serviceWithFormAuth = new ServiceBuilder("http://localhost:8080").
             useAuthorizationStrategy(formAuth).
@@ -130,5 +131,13 @@ class SimpleTest extends Specification {
         Person person = personRepository.findById("0")
         person.getId() == "0"
         person.getName() == "test name"
+    }
+
+    def "test query method PersonRepository findByName"() {
+        expect:
+        PersonsRepository personRepository = serviceWithFormAuth.produceClient(PersonsRepository.class)
+        List<Person> persons = personRepository.findByName("test name")
+        persons[0].getId() == "0"
+        persons[0].getName() == "test name"
     }
 }

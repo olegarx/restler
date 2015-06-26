@@ -29,7 +29,7 @@ public class ServiceBuilder {
     private String baseUrl;
 
     private java.util.concurrent.Executor threadExecutor = Executors.newCachedThreadPool();
-    private Executor executor = new RestOperationsExecutor(new RestTemplate());
+    private Executor executor = new SpringDataRestOperationsExecutor(new RestOperationsExecutor(new RestTemplate()));
     private ExecutionAdvice errorMapper = null;
 
     private AuthenticationStrategy authenticationStrategy;
