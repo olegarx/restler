@@ -82,7 +82,7 @@ public class RepositoryMethodInvocationMapper implements InvocationMapper {
 
         HttpStatus expectedStatus = HttpStatus.OK;
 
-        return new ServiceMethod<>(uriTemplate, resultType, httpMethod, expectedStatus);
+        return new ServiceMethod<>(uriTemplate, resultType, method.getGenericReturnType(), httpMethod, expectedStatus);
     }
 
     private String getRepositoryUri(Object o, RepositoryRestResource repositoryAnnotation) {

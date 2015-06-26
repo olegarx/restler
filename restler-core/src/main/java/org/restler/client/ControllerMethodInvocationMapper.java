@@ -117,7 +117,7 @@ public class ControllerMethodInvocationMapper implements InvocationMapper {
             }
         }
 
-        return new ServiceMethod<>(uriTemplate, resultType, httpMethod, expectedStatus);
+        return new ServiceMethod<>(uriTemplate, resultType, method.getGenericReturnType(), httpMethod, expectedStatus);
     }
 
     private String getMappedUriString(RequestMapping mapping) {
