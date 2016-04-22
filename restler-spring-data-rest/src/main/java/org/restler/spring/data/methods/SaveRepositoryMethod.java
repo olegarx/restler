@@ -48,7 +48,11 @@ public class SaveRepositoryMethod extends DefaultRepositoryMethod {
 
     @Override
     public boolean isRepositoryMethod(Method method) {
-        return "save".equals(method.getName());
+        try {
+            return CrudRepository.class.getMethod("save", Object.class).equals(method);
+        } catch (NoSuchMethodException e) {
+            throw new RestlerException("Can't find CrudRepository.save method.", e);
+        }
     }
 
     @Override
@@ -78,7 +82,7 @@ public class SaveRepositoryMethod extends DefaultRepositoryMethod {
 
         calls.add(makeAssociations(args[0], getChildren(args[0])));
 
-        return new ChainCall(calls, returnType);
+        return new ChainCall((new FilterNullResults())::filter, calls, returnType);
     }
 
     @Override
@@ -91,6 +95,18 @@ public class SaveRepositoryMethod extends DefaultRepositoryMethod {
         }
 
         return getId(arg).toString();
+    }
+
+    //need for filter result that return associate call
+    private class FilterNullResults {
+        private Object temp = null;
+
+        Object filter(Object object) {
+            if(object != null) {
+                temp = object;
+            }
+            return temp;
+        }
     }
 
 
@@ -330,7 +346,7 @@ public class SaveRepositoryMethod extends DefaultRepositoryMethod {
         throw new RestlerException("Can't get id.");
     }
 
-    private class ResourceTree implements Iterable {
+    private class ResourceTree implements Iterable<Object> {
         private final Object resource;
         private final List<ResourceTree> children;
 
